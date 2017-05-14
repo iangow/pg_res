@@ -1,0 +1,20 @@
+# Bad practices in research
+
+## Manual steps in analysis
+
+A mantra in some areas of statistics and biomedical research is "reproducibility". 
+In some contexts, reproducibility of results means that one researcher could run exeriments that are essentially identical to another researcher's (presumably with different subjects, etc.) and get similar results.
+But in the context of research computing, especically with archival data sets, the idea is that one could take the steps outlined in a paper, using the (sometimes public) data sets, and produce similar results to those in the paper.
+In the limit, if the data sets are publicly available and the processes for transforming those for the paper are described precisely enough, then it should be possible to obtain precisely the coefficient estimates, etc., provided in the original paper.
+
+## Manual modification of data
+
+## Bad (or no) documentation
+
+## Poor version control
+
+## Limited sharing of code and data
+
+## No data exploration
+
+## Casual approach to merging data sets
