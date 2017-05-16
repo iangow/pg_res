@@ -70,6 +70,9 @@ While PostgreSQL has many compelling features for a wide range of situations, in
 As such, many of the benefits could be obtained using another platform, such as MySQL.
 - **PostgreSQL is good value for money.** All this for nothing.
 PostgreSQL is supported by an enthusiastic and active group of users and developers.
+- **A PostgreSQL server is now available from WRDS.**  Wharton Research Data Services (WRDS) is a major sourc of data for researchers in finance, accounting and other fields.
+WRDS recently began offering a server on `wrds-pgdata.wharton.upenn.edu` running on port `9737`.
+This is some kind of a vote of confidence in PostgreSQL and also creates additional reasons to use PostgreSQL as doing so creates multiple ways to access WRDS data from within PostgreSQL.
 
 
 

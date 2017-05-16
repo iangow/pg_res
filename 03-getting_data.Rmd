@@ -1,0 +1,48 @@
+# Getting data into PostgreSQL
+
+In this chapter I sketch some aspects of getting data into PostgreSQL from a variety of sources. Here are examples I consider
+
+- Data from Wharton Research Data Services (WRDS)
+- Conference call transcripts from StreetEvents
+- Hand-collected data from Google Sheets
+- Excel worksheets from third parties
+
+## Data from WRDS
+
+A major source of data for finance and accounting research is WRDS.
+One way to access WRDS data is via WRDS's new PostgreSQL database. 
+You can use your WRDS ID to connect to this database.
+Here is how to connect using R:^[You will also need the `RPostgreSQL` 
+package installed; 
+you also need to supply your WRDS password, which could be done by adding 
+`password = "XXXXX"` to the arguments to `src_postgres` below.]
+
+```{r}
+library(dplyr, warn.conflicts = FALSE)
+pg_wrds <- src_postgres(host = "wrds-pgdata.wharton.upenn.edu", port = 9737,
+                        user = "iangow", dbname = "wrds")
+```
+Having connected to the database, one can access the WRDS data you have access to
+in much the same way as you might via SAS.
+For example, the CRSP daily stock file is in the table `dsf` in the `crsp`
+schema.
+Here we look at a few rows of this.
+
+```{r}
+dsf <- tbl(pg_wrds, sql("SELECT * FROM crsp.dsf"))
+dsf %>%
+  mutate(prc = abs(prc)) %>%
+  select(permno, date, prc, ret)
+```                        
+                      
+While that's one option for accessing WRDS data, it has its limitations.
+First, a common scenario is that one wants to merge data from WRDS with a large-ish data set of one's own.
+Given that the WRDS database does not include your data, you'd need to pull the data from WRDS on one's own machine and then merge.
+One can pull data into a local dataframe using the `dplyr` verb `collect()`.
+But `dsf %>% collect()` is not something you want to be doing on a regular basis.
+
+For WRDS data sets that you use in your research, I think it makes sense to have a copy of the data in your own database.
+While doing this uses up disk space and requires some time to download te data, the process for doing this is relatively painless.^[An advantage of this approach is that the WRDS PostgreSQL database can be a little rough in places, with timestamps stored as text values and integers as floating point values.]
+
+I use Python scripts to maintain my subset of WRDS, which includes data from Compustat, CRSP, and Capital IQ, among other data sets. 
+These scripts are available at https://github.com/iangow/wrds_pg.

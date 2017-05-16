@@ -1,0 +1,88 @@
+# Identifiers
+
+Here *identifiers* refer to things such as PERMNOs, tickers, GVKEYs, CUSIPs, CIKs, and the like.
+The idea behind these firm identifiers is that they uniquely identify a firm for a particular purpose.^[Of course, PERMNOs, CUSIPs, and tickers (at best) identify *securities*, not firms. More on this below.]
+Of course, identifiers apply not only to firms, but also people.^[In the United States, a Social Security Number (SSN) is a pretty robust identifier of people, though as researchers, we generally don't have access to SSNs.] 
+But most of this chapter will focus on firm identifiers, in part because of  the importance of firsm as units of observation in finance and accounting research, but also becasue identifying firms is much harder than identifying people.
+While not specfic to the platform I describe in this book, the issue of *identifiers* is one that seems less perplexing and better-handled when a relational database provides the backbone of your data store as it does here.
+
+## Firm identifiers: A quiz
+
+My sense is that researchers' understanding of firm identifiers is often sketchy.
+Here is a quick quiz to test your knowledge of firm identifiers.^[Obviously, I am assuming that you recognize the various identifiers. If not, read on.]
+Using a standard mapping such as the PERMNO-GVKEY mapping provided by CRSP:
+
+- General Motors Corporation declated bankruptcy in June 2009? 
+Does the "successor firm" General Motors Company have the same GVKEY? The same PERMNO?
+- Can a CUSIP map to more than one PERMNO? To more than one GVKEY?
+- Can a PERMNO map to more than one CUSIP?
+- Can a GVKEY map to more than one PERMCO?
+- Can a PERMCO map to different CIKs?
+- If I have two data sets, $X$ and $Y$ and CUSIP is a "firm" identifier on each, can you simply merge using CUSIPs?
+- When would a "firm" change CUSIPs?
+- When would a "firm" change CIKs?
+- If the firm identifier on IBES is `ticker`, should I merge with CRSP using `ticker` from `crsp.stocknames`?
+
+
+## CRSP's link tables
+
+From [WRDS](https://wrds-web.wharton.upenn.edu/wrds/ds/crsp/ccm_a/linktable/index.cfm?navGroupHeader=Annual):
+
+> The WRDS-created linking dataset (ccmxpf_linktable) has been deprecated.  It will continue to be created for a transition period of 1 year. SAS programmers should use the Link History dataset (ccmxpf_lnkhist) from CRSP.
+
+And from [here](https://wrds-web.wharton.upenn.edu/wrds/support/Data/_001Manuals%20and%20Overviews/_002CRSP/ccm-overview.cfm):
+
+> LINKPRIM clarifies the link's relationship to Compustat's marked primary security within the related range. "P" indicates a primary link marker, as identified by Compustat in monthly security data. "C" indicates a primary link marker, as identified by CRSP to resolve ranges of overlapping or missing primary markers from Compustat in order to produce one primary security throughout the company history. "J" indicates a joiner secondary issue of a company, identified by Compustat in monthly security data.
+
+So let's check it out. Given any GVKEY and a date, is there only one PERMNO that is matched with `linkprim IN ('P', 'C')`?
+
+```{r}
+ccmxpf_lnkhist <- 
+    tbl(pg, sql("SELECT * FROM crsp.ccmxpf_lnkhist")) 
+
+gvkey_permno <-
+    ccmxpf_lnkhist %>%
+    filter(linkprim %in% c("C", "P"),
+           !is.na(lpermno)) 
+
+# Look for overlapping date ranges    
+gvkey_permno %>%
+    group_by(gvkey) %>%
+    arrange(gvkey, linkdt) %>%
+    mutate(lead_linkdt = lead(linkdt),
+           lag_linkenddt = lag(linkenddt)) %>%
+    filter(linkenddt >= lead_linkdt | lag_linkenddt >= linkdt)
+```
+
+So there is just *one* case of overlapping dates, and it has `linkprim` equal to `P` in both rows. But the answer is effectively "no" because you get the same PERMNO (`77571`) in either row.
+
+Note that the question here begins with a `GVKEY` and asks "given this GVKEY, which PERMNO provides the correct security-related information (return, stock price) for a given date?" The answer is given by `lpermno` above. Note that there is no mention of `datadate` (from Compustat) here. But it may be that I am interested in security information on `datadate` and thus that would drive the selection of `lpermno`.
+
+Note that the vast majority of GVKEYs map to just one PERMNO:
+
+```{r}
+gvkey_permno %>%    
+    select(gvkey, lpermno) %>%
+    distinct() %>%
+    group_by(gvkey) %>%
+    mutate(num_permnos = n()) %>%
+    ungroup() %>%
+    count(num_permnos) %>%
+    arrange(num_permnos)
+```
+I think I've looked into the case with 5 PERMNOs before. If I recall correctly, it's a total mess with tracking stock, spin-offs, etc. But one observation doesn't matter much.
+
+```r
+stocknames <- tbl(pg, sql("SELECT * FROM crsp.stocknames"))
+gvkey_permno %>%
+    select(gvkey, lpermno) %>%
+    distinct() %>%
+    group_by(gvkey) %>%
+    mutate(num_permnos = n()) %>%
+    filter(num_permnos==5L) %>%
+    inner_join(ccmxpf_lnkhist) %>%
+    rename(permno=lpermno) %>%
+    inner_join(stocknames) %>%
+    arrange(linkdt) %>%
+    select(gvkey, permno, linkdt, linkenddt, ncusip, comnam)
+```
