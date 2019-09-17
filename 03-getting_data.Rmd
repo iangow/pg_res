@@ -19,8 +19,10 @@ you also need to supply your WRDS password, which could be done by adding
 
 ```{r}
 library(dplyr, warn.conflicts = FALSE)
-pg_wrds <- src_postgres(host = "wrds-pgdata.wharton.upenn.edu", port = 9737,
-                        user = "iangow", dbname = "wrds")
+library(DBI)
+pg_wrds <- dbConnect(RPostgres::Postgres(),
+                     host = "wrds-pgdata.wharton.upenn.edu", port = 9737,
+                     user = "iangow", dbname = "wrds")
 ```
 Having connected to the database, one can access the WRDS data you have access to
 in much the same way as you might via SAS.
