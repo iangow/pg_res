@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Modern Research Computing</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-  <meta name="description" content="Modern Research Computing">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 The backbone: The relational database | Modern Research Computing</title>
+  <meta name="description" content="Chapter 3 The backbone: The relational database | Modern Research Computing" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Modern Research Computing" />
+  <meta property="og:title" content="Chapter 3 The backbone: The relational database | Modern Research Computing" />
   <meta property="og:type" content="book" />
   
   
@@ -18,25 +16,25 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Modern Research Computing" />
+  <meta name="twitter:title" content="Chapter 3 The backbone: The relational database | Modern Research Computing" />
   
   
   
 
-<meta name="author" content="Ian D. Gow">
+<meta name="author" content="Ian D. Gow" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="bad-practices-in-research.html">
-<link rel="next" href="getting-data-into-postgresql.html">
-
+<link rel="prev" href="bad-practices-in-research.html"/>
+<link rel="next" href="getting-data-into-postgresql.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -51,46 +49,72 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -153,72 +177,90 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="the-backbone-the-relational-database" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> The backbone: The relational database</h1>
-<p>The approach I take in this chapter is to start by illustrating the kinds of things that a relational database platform allows me to do. Initially, I will gloss over the messy details of setting up a database, getting data into it, etc. But rest assured that if you like what you see, it is fairly straightforward to set up the infrastructure I describe.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a></p>
-<p>In addition, I will often illustrate ideas using code that I only fully explain later in the book. For example, I find R packages such as <code>dplyr</code> to be particularly slick</p>
+<p>The approach I take in this chapter is to start by illustrating the kinds of things that a relational database platform allows me to do.
+Initially, I will gloss over the messy details of setting up a database, getting data into it, etc.
+But rest assured that if you like what you see, it is fairly straightforward to set up the infrastructure I describe.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
+<p>In addition, I will often illustrate ideas using code that I only fully explain later in the book.
+For example, I find R packages such as <code>dplyr</code> to be particularly slick</p>
 <div id="handling-large-ish-data-sets" class="section level2">
 <h2><span class="header-section-number">3.1</span> Handling large-ish data sets</h2>
-<p>One nice feature of a relational database is that it makes it easy to access data from large-ish data sets.</p>
-<p>Suppose I was interested in the stock returns of Amazon.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a></p>
-<p>The CRSP daily stock file (denoted as <code>crsp.dsf</code> on the WRDS system) contains about 18 GB of data in about 90 million rows. While someone dealing with the log files of a busy website or managing the geospatial data of Uber would chuckle at the idea of this being “big data”, the reality is that 18GB is a pain to work with in a number of situations:</p>
+<p>One nice feature of a relational database is that it makes it easy to access data from
+large-ish data sets.</p>
+<p>Suppose I was interested in the stock returns of Amazon.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
+<p>The CRSP daily stock file (denoted as <code>crsp.dsf</code> on the WRDS system) contains about 18 GB of data in about 90 million rows.
+While someone dealing with the log files of a busy website or managing the geospatial data of Uber would chuckle at the idea of this being “big data”, the reality is that 18GB is a pain to work with in a number of situations:</p>
 <ul>
 <li>When the data aren’t local. Downloading 18GB over the internet is time-consuming with even the fastest broadband connections.</li>
 <li>When you have limited RAM. For a typical laptop in 2017, loading in 18GB into memory will exhaust available RAM.</li>
 <li>When you’re only interested in a small sliver of the data, such in our hypothetical “Amazon stock returns” case.</li>
 </ul>
 <p>So how would I access these data? First, I would establish a connection to my database:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr, <span class="dt">warn.conflicts =</span> <span class="ot">FALSE</span>)
-pg &lt;-<span class="st"> </span><span class="kw">src_postgres</span>()</code></pre></div>
-<p>Here I am using R (and, in particular, the package <code>dplyr</code>). The first line loads the package.<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a> The second line connects to my database.<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(dplyr, <span class="dt">warn.conflicts =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">pg &lt;-<span class="st"> </span><span class="kw">src_postgres</span>()</a></code></pre></div>
+<p>Here I am using R (and, in particular, the package <code>dplyr</code>).
+The first line loads the package.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>
+The second line connects to my database.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
 <p>The next thing I need to do is to identify the <code>permno</code> (CRSP’s firm identifier), which I can get by looking at the <code>crsp.stocknames</code> table.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stocknames &lt;-<span class="st"> </span><span class="kw">tbl</span>(pg, <span class="kw">sql</span>(<span class="st">&quot;SELECT * FROM crsp.stocknames&quot;</span>))
-
-stocknames %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(comnam %~*%<span class="st"> &#39;AMAZON&#39;</span>) %&gt;%
-<span class="st">  </span><span class="kw">select</span>(permno, comnam) %&gt;%
-<span class="st">  </span><span class="kw">collect</span>()</code></pre></div>
-<pre><code>## # A tibble: 1 × 2
-##   permno         comnam
-## *  &lt;int&gt;          &lt;chr&gt;
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">stocknames &lt;-<span class="st"> </span><span class="kw">tbl</span>(pg, <span class="kw">sql</span>(<span class="st">&quot;SELECT * FROM crsp.stocknames&quot;</span>))</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">stocknames <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(comnam <span class="op">%~*%</span><span class="st"> &#39;AMAZON&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">  </span><span class="kw">select</span>(permno, comnam) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">  </span><span class="kw">collect</span>()</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 2
+##   permno comnam        
+## *  &lt;int&gt; &lt;chr&gt;         
 ## 1  84788 AMAZON COM INC</code></pre>
-<p>The first line of the code creates a variable <code>stocknames</code> that I can use to refer to the underlying data table <code>crsp.stocknames</code> in my database.<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a></p>
-<p>Here I am using the <code>%&gt;%</code> “pipe” operator, which is comes from the <code>magrittr</code> package and is re-exported by <code>dplyr</code>. The easiest way to understand this in the context of <code>dplyr</code> is that thing to the left of <code>%&gt;%</code> is typically the object of the thing to the right of <code>%&gt;%</code>, which is typically a verb. So we take stocknames, and <code>filter</code> to retain only observations where the company name (<code>comnam</code>) matches <code>AMAZON</code>.<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a> Now that I know that the PERMNO for Amazon is <code>84788</code>, I can go to the daily stock file (<code>crsp.dsf</code>) to get stock returns.<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a></p>
-<p>The result from that <code>filter</code> operation is another (smaller) data set that becomes the object for the next verb: <code>select</code>. Like its SQL counterpart (typically written <code>SELECT</code> in SQL circles), <code>select</code> chooses the columns of the data set that are to be retained. For this query, we want the <code>permno</code> and, to check we have the right company, the company’s name (<code>comnam</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dsf &lt;-<span class="st"> </span><span class="kw">tbl</span>(pg, <span class="kw">sql</span>(<span class="st">&quot;SELECT * FROM crsp.dsf&quot;</span>))
-
-amzn_rets &lt;-
-<span class="st">  </span>dsf %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(permno ==<span class="st"> </span>84788L) %&gt;%
-<span class="st">  </span><span class="kw">select</span>(permno, date, ret, prc) %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prc =</span> <span class="kw">abs</span>(prc)) %&gt;%
-<span class="st">  </span><span class="kw">collect</span>()
-
-amzn_rets</code></pre></div>
-<pre><code>## # A tibble: 4,941 × 4
-##    permno       date       ret     prc
-## *   &lt;int&gt;     &lt;date&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-## 1   84788 1997-05-15        NA 23.5000
-## 2   84788 1997-05-16 -0.117021 20.7500
-## 3   84788 1997-05-19 -0.012048 20.5000
-## 4   84788 1997-05-20 -0.042683 19.6250
-## 5   84788 1997-05-21 -0.127389 17.1250
-## 6   84788 1997-05-22 -0.021898 16.7500
-## 7   84788 1997-05-23  0.074627 18.0000
-## 8   84788 1997-05-27  0.055556 19.0000
-## 9   84788 1997-05-28 -0.032895 18.3750
-## 10  84788 1997-05-29 -0.017007 18.0625
-## # ... with 4,931 more rows</code></pre>
-<p>Now, we set up a variable to refer to <code>crsp.dsf</code>, <code>filter</code> to get data just for Amazon, <code>select</code> the variables of interest, then <code>mutate</code> the stock price variable (<code>prc</code>) to correct negative values, before using <code>collect</code> to bring the data from the database into R.<a href="#fn15" class="footnoteRef" id="fnref15"><sup>15</sup></a></p>
-<p>Note that this all took about a tenth of a second. So the fact that the data are stored in an 18GB table on a different computer was not at all problematic. PostgreSQL is able to grab the data of interest quickly and send (over the internet) just what I need. The resulting data is a mere 136.4 Kb.</p>
-<p>Now that I have the data, suppose that I wanted to plot cumulative stock performance. Many researchers would take the data above and dump to a file that could be opened in Excel, open that file in Excel, use the mouse to select the data of interest, and then make a plot. That plot could be copied and pasted into, say, a Word document. But here we have taken several manual steps of the kind I argued against in Chapter 2.</p>
+<p>The first line of the code creates a variable <code>stocknames</code> that I can use to refer to the underlying data table <code>crsp.stocknames</code> in my database.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
+<p>Here I am using the <code>%&gt;%</code> “pipe” operator, which is comes from the <code>magrittr</code> package and is re-exported by <code>dplyr</code>.
+The easiest way to understand this in the context of <code>dplyr</code> is that thing to the left of <code>%&gt;%</code> is typically the object of the thing to the right of <code>%&gt;%</code>, which is typically a verb.
+So we take stocknames, and <code>filter</code> to retain only observations where the company name (<code>comnam</code>) matches <code>AMAZON</code>.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>
+Now that I know that the PERMNO for Amazon is <code>84788</code>, I can go to the daily stock file (<code>crsp.dsf</code>) to get stock returns.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
+<p>The result from that <code>filter</code> operation is another (smaller) data set that becomes the object for the next verb: <code>select</code>.
+Like its SQL counterpart (typically written <code>SELECT</code> in SQL circles), <code>select</code> chooses the columns of the data set that are to be retained.
+For this query, we want the <code>permno</code> and, to check we have the right company, the company’s name (<code>comnam</code>).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">dsf &lt;-<span class="st"> </span><span class="kw">tbl</span>(pg, <span class="kw">sql</span>(<span class="st">&quot;SELECT * FROM crsp.dsf&quot;</span>))</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">amzn_rets &lt;-</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span>dsf <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw">filter</span>(permno <span class="op">==</span><span class="st"> </span>84788L) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span><span class="kw">select</span>(permno, date, ret, prc) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prc =</span> <span class="kw">abs</span>(prc)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw">collect</span>()</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">amzn_rets</a></code></pre></div>
+<pre><code>## # A tibble: 5,443 x 4
+##    permno date           ret   prc
+##  *  &lt;int&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt;
+##  1  84788 1997-05-15 NA       23.5
+##  2  84788 1997-05-16 -0.117   20.8
+##  3  84788 1997-05-19 -0.0120  20.5
+##  4  84788 1997-05-20 -0.0427  19.6
+##  5  84788 1997-05-21 -0.127   17.1
+##  6  84788 1997-05-22 -0.0219  16.8
+##  7  84788 1997-05-23  0.0746  18  
+##  8  84788 1997-05-27  0.0556  19  
+##  9  84788 1997-05-28 -0.0329  18.4
+## 10  84788 1997-05-29 -0.0170  18.1
+## # … with 5,433 more rows</code></pre>
+<p>Now, we set up a variable to refer to <code>crsp.dsf</code>, <code>filter</code> to get data just for Amazon, <code>select</code> the variables of interest, then <code>mutate</code> the stock price variable (<code>prc</code>) to correct negative values, before using <code>collect</code> to bring the data from the database into R.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a></p>
+<p>Note that this all took about a tenth of a second.
+So the fact that the data are stored in an 18GB table on a different computer was not at all problematic.
+PostgreSQL is able to grab the data of interest quickly and send (over the internet) just what I need.
+The resulting data is a mere 150.2 Kb.</p>
+<p>Now that I have the data, suppose that I wanted to plot cumulative stock performance.
+Many researchers would take the data above and dump to a file that could be opened in Excel, open that file in Excel, use the mouse to select the data of interest, and then make a plot.
+That plot could be copied and pasted into, say, a Word document.
+But here we have taken several manual steps of the kind I argued against in Chapter 2.</p>
 <p>How else might we do this? Well, we could use the excellent <code>ggplot2</code> package to make a plot following on from our steps so far. Here is the code to do so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-amzn_rets %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cumret =</span> <span class="kw">cumprod</span>(<span class="dv">1</span>+<span class="kw">coalesce</span>(ret, <span class="dv">0</span>)) -<span class="st"> </span><span class="dv">1</span>) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> cumret)) +
-<span class="st">  </span><span class="kw">geom_line</span>() +
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Cumulative returns&quot;</span>) +
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Amazon&#39;s stock performance&quot;</span>) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">amzn_rets <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cumret =</span> <span class="kw">cumprod</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">coalesce</span>(ret, <span class="dv">0</span>)) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> cumret)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Cumulative returns&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Amazon&#39;s stock performance&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))</a></code></pre></div>
 <p><img src="bookdown-start_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 
 </div>
@@ -226,14 +268,14 @@ amzn_rets %&gt;%<span class="st"> </span>
 <div class="footnotes">
 <hr />
 <ol start="8">
-<li id="fn8"><p>Much of the code I use to maintain my platform, along with instructions for using it, is available on my GitHub <a href="https://github.com/iangow">page</a>.<a href="the-backbone-the-relational-database.html#fnref8">↩</a></p></li>
-<li id="fn9"><p>This is admittedly not a particularly realistic <em>research</em> problem, but many of the benefits described here do accrue in real research applications.<a href="the-backbone-the-relational-database.html#fnref9">↩</a></p></li>
-<li id="fn10"><p>You may have to <code>install.packages(&quot;dplyr&quot;)</code> if you do not have it installed already.<a href="the-backbone-the-relational-database.html#fnref10">↩</a></p></li>
-<li id="fn11"><p>I have omitted connection information here. As I will discuss later, I think it is good practice to supply that elsewhere, which is what I have done here.<a href="the-backbone-the-relational-database.html#fnref11">↩</a></p></li>
-<li id="fn12"><p>This syntax requires the use of a full SQL statement, <code>SELECT * FROM crsp.stocknames</code>, which isn’t particularly elegant, but also isn’t particularly problematic.<a href="the-backbone-the-relational-database.html#fnref12">↩</a></p></li>
-<li id="fn13"><p><code>%~%</code> is PostgreSQL’s regular expression matching operator. More will be said on all this later on. For now, just accept that it’s doing some kind of string matching.<a href="the-backbone-the-relational-database.html#fnref13">↩</a></p></li>
-<li id="fn14"><p>An alternative approach would involve joining the query above with the one below. But I assume that it is necessary to visually inspect the query above to verify that we have the right “Amazon” here.<a href="the-backbone-the-relational-database.html#fnref14">↩</a></p></li>
-<li id="fn15"><p>Stock prices should be positive, but <a href="http://pages.stern.nyu.edu/~adesouza/sasfinphd/index/node17.html">André de Souza</a> of NYU points out that “closing prices in the <code>crsp.msf</code> and <code>crsp.dsf</code> files are negative if the price is not the price from an actual trade, but the average of bid-ask spreads. I always set <code>prc = abs(prc)</code> before I do anything else with price.”<a href="the-backbone-the-relational-database.html#fnref15">↩</a></p></li>
+<li id="fn8"><p>Much of the code I use to maintain my platform, along with instructions for using it, is available on my GitHub <a href="https://github.com/iangow">page</a>.<a href="the-backbone-the-relational-database.html#fnref8" class="footnote-back">↩</a></p></li>
+<li id="fn9"><p>This is admittedly not a particularly realistic <em>research</em> problem, but many of the benefits described here do accrue in real research applications.<a href="the-backbone-the-relational-database.html#fnref9" class="footnote-back">↩</a></p></li>
+<li id="fn10"><p>You may have to <code>install.packages(&quot;dplyr&quot;)</code> if you do not have it installed already.<a href="the-backbone-the-relational-database.html#fnref10" class="footnote-back">↩</a></p></li>
+<li id="fn11"><p>I have omitted connection information here. As I will discuss later, I think it is good practice to supply that elsewhere, which is what I have done here.<a href="the-backbone-the-relational-database.html#fnref11" class="footnote-back">↩</a></p></li>
+<li id="fn12"><p>This syntax requires the use of a full SQL statement, <code>SELECT * FROM crsp.stocknames</code>, which isn’t particularly elegant, but also isn’t particularly problematic.<a href="the-backbone-the-relational-database.html#fnref12" class="footnote-back">↩</a></p></li>
+<li id="fn13"><p><code>%~%</code> is PostgreSQL’s regular expression matching operator. More will be said on all this later on. For now, just accept that it’s doing some kind of string matching.<a href="the-backbone-the-relational-database.html#fnref13" class="footnote-back">↩</a></p></li>
+<li id="fn14"><p>An alternative approach would involve joining the query above with the one below. But I assume that it is necessary to visually inspect the query above to verify that we have the right “Amazon” here.<a href="the-backbone-the-relational-database.html#fnref14" class="footnote-back">↩</a></p></li>
+<li id="fn15"><p>Stock prices should be positive, but <a href="http://pages.stern.nyu.edu/~adesouza/sasfinphd/index/node17.html">André de Souza</a> of NYU points out that “closing prices in the <code>crsp.msf</code> and <code>crsp.dsf</code> files are negative if the price is not the price from an actual trade, but the average of bid-ask spreads. I always set <code>prc = abs(prc)</code> before I do anything else with price.”<a href="the-backbone-the-relational-database.html#fnref15" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -242,8 +284,9 @@ amzn_rets %&gt;%<span class="st"> </span>
         </div>
       </div>
 <a href="bad-practices-in-research.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="getting-data-into-postgresql.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="getting-data-into-postgresql.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -252,17 +295,18 @@ amzn_rets %&gt;%<span class="st"> </span>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -273,7 +317,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"history": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-start.pdf"],
 "toc": {
 "collapse": "subsection"
 }
@@ -286,9 +334,12 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

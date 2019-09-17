@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Modern Research Computing</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-  <meta name="description" content="Modern Research Computing">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Identifiers | Modern Research Computing</title>
+  <meta name="description" content="Chapter 5 Identifiers | Modern Research Computing" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Modern Research Computing" />
+  <meta property="og:title" content="Chapter 5 Identifiers | Modern Research Computing" />
   <meta property="og:type" content="book" />
   
   
@@ -18,25 +16,25 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Modern Research Computing" />
+  <meta name="twitter:title" content="Chapter 5 Identifiers | Modern Research Computing" />
   
   
   
 
-<meta name="author" content="Ian D. Gow">
+<meta name="author" content="Ian D. Gow" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="getting-data-into-postgresql.html">
-<link rel="next" href="application-firm-performance-over-time.html">
-
+<link rel="prev" href="getting-data-into-postgresql.html"/>
+<link rel="next" href="application-firm-performance-over-time.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -51,46 +49,72 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -153,12 +177,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="identifiers" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Identifiers</h1>
-<p>Here <em>identifiers</em> refer to things such as PERMNOs, tickers, GVKEYs, CUSIPs, CIKs, and the like. The idea behind these firm identifiers is that they uniquely identify a firm for a particular purpose.<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a> Of course, identifiers apply not only to firms, but also people.<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a> But most of this chapter will focus on firm identifiers, in part because of the importance of firsm as units of observation in finance and accounting research, but also becasue identifying firms is much harder than identifying people. While not specfic to the platform I describe in this book, the issue of <em>identifiers</em> is one that seems less perplexing and better-handled when a relational database provides the backbone of your data store as it does here.</p>
+<p>Here <em>identifiers</em> refer to things such as PERMNOs, tickers, GVKEYs, CUSIPs, CIKs, and the like.
+The idea behind these firm identifiers is that they uniquely identify a firm for a particular purpose.<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>
+Of course, identifiers apply not only to firms, but also people.<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>
+But most of this chapter will focus on firm identifiers, in part because of the importance of firsm as units of observation in finance and accounting research, but also becasue identifying firms is much harder than identifying people.
+While not specfic to the platform I describe in this book, the issue of <em>identifiers</em> is one that seems less perplexing and better-handled when a relational database provides the backbone of your data store as it does here.</p>
 <div id="firm-identifiers-a-quiz" class="section level2">
 <h2><span class="header-section-number">5.1</span> Firm identifiers: A quiz</h2>
-<p>My sense is that researchers’ understanding of firm identifiers is often sketchy. Here is a quick quiz to test your knowledge of firm identifiers.<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a> Using a standard mapping such as the PERMNO-GVKEY mapping provided by CRSP:</p>
+<p>My sense is that researchers’ understanding of firm identifiers is often sketchy.
+Here is a quick quiz to test your knowledge of firm identifiers.<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>
+Using a standard mapping such as the PERMNO-GVKEY mapping provided by CRSP:</p>
 <ul>
-<li>General Motors Corporation declated bankruptcy in June 2009? Does the “successor firm” General Motors Company have the same GVKEY? The same PERMNO?</li>
+<li>General Motors Corporation declated bankruptcy in June 2009?
+Does the “successor firm” General Motors Company have the same GVKEY? The same PERMNO?</li>
 <li>Can a CUSIP map to more than one PERMNO? To more than one GVKEY?</li>
 <li>Can a PERMNO map to more than one CUSIP?</li>
 <li>Can a GVKEY map to more than one PERMCO?</li>
@@ -180,73 +211,68 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>LINKPRIM clarifies the link’s relationship to Compustat’s marked primary security within the related range. “P” indicates a primary link marker, as identified by Compustat in monthly security data. “C” indicates a primary link marker, as identified by CRSP to resolve ranges of overlapping or missing primary markers from Compustat in order to produce one primary security throughout the company history. “J” indicates a joiner secondary issue of a company, identified by Compustat in monthly security data.</p>
 </blockquote>
 <p>So let’s check it out. Given any GVKEY and a date, is there only one PERMNO that is matched with <code>linkprim IN ('P', 'C')</code>?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ccmxpf_lnkhist &lt;-<span class="st"> </span>
-<span class="st">    </span><span class="kw">tbl</span>(pg, <span class="kw">sql</span>(<span class="st">&quot;SELECT * FROM crsp.ccmxpf_lnkhist&quot;</span>)) 
-
-gvkey_permno &lt;-
-<span class="st">    </span>ccmxpf_lnkhist %&gt;%
-<span class="st">    </span><span class="kw">filter</span>(linkprim %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;P&quot;</span>),
-           !<span class="kw">is.na</span>(lpermno)) 
-
-<span class="co"># Look for overlapping date ranges    </span>
-gvkey_permno %&gt;%
-<span class="st">    </span><span class="kw">group_by</span>(gvkey) %&gt;%
-<span class="st">    </span><span class="kw">arrange</span>(gvkey, linkdt) %&gt;%
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">lead_linkdt =</span> <span class="kw">lead</span>(linkdt),
-           <span class="dt">lag_linkenddt =</span> <span class="kw">lag</span>(linkenddt)) %&gt;%
-<span class="st">    </span><span class="kw">filter</span>(linkenddt &gt;=<span class="st"> </span>lead_linkdt |<span class="st"> </span>lag_linkenddt &gt;=<span class="st"> </span>linkdt)</code></pre></div>
-<pre><code>## Source:   query [?? x 10]
-## Database: postgres 9.6.2 [igow@iangow.me:5432/crsp]
-## Groups: gvkey
-## 
-##    gvkey linkprim  liid linktype lpermno lpermco     linkdt  linkenddt
-##    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;date&gt;     &lt;date&gt;
-## 1 017196        P    01       LC   77571   28850 1989-11-17 1994-07-21
-## 2 017196        P   01C       LX   77571   28850 1989-11-17 1989-11-29
-## # ... with 2 more variables: lead_linkdt &lt;date&gt;, lag_linkenddt &lt;date&gt;</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">ccmxpf_lnkhist &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">    </span><span class="kw">tbl</span>(pg, <span class="kw">sql</span>(<span class="st">&quot;SELECT * FROM crsp.ccmxpf_lnkhist&quot;</span>)) </a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">gvkey_permno &lt;-</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="st">    </span>ccmxpf_lnkhist <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="st">    </span><span class="kw">filter</span>(linkprim <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;P&quot;</span>),</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">           <span class="op">!</span><span class="kw">is.na</span>(lpermno)) </a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co"># Look for overlapping date ranges    </span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">gvkey_permno <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="st">    </span><span class="kw">group_by</span>(gvkey) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="st">    </span><span class="kw">arrange</span>(gvkey, linkdt) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">lead_linkdt =</span> <span class="kw">lead</span>(linkdt),</a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">           <span class="dt">lag_linkenddt =</span> <span class="kw">lag</span>(linkenddt)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="st">    </span><span class="kw">filter</span>(linkenddt <span class="op">&gt;=</span><span class="st"> </span>lead_linkdt <span class="op">|</span><span class="st"> </span>lag_linkenddt <span class="op">&gt;=</span><span class="st"> </span>linkdt)</a></code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 10]
+## # Database:   postgres 11.3.0 [igow@iangow.me:5432/crsp]
+## # Groups:     gvkey
+## # Ordered by: gvkey, linkdt</code></pre>
 <p>So there is just <em>one</em> case of overlapping dates, and it has <code>linkprim</code> equal to <code>P</code> in both rows. But the answer is effectively “no” because you get the same PERMNO (<code>77571</code>) in either row.</p>
 <p>Note that the question here begins with a <code>GVKEY</code> and asks “given this GVKEY, which PERMNO provides the correct security-related information (return, stock price) for a given date?” The answer is given by <code>lpermno</code> above. Note that there is no mention of <code>datadate</code> (from Compustat) here. But it may be that I am interested in security information on <code>datadate</code> and thus that would drive the selection of <code>lpermno</code>.</p>
 <p>Note that the vast majority of GVKEYs map to just one PERMNO:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gvkey_permno %&gt;%<span class="st">    </span>
-<span class="st">    </span><span class="kw">select</span>(gvkey, lpermno) %&gt;%
-<span class="st">    </span><span class="kw">distinct</span>() %&gt;%
-<span class="st">    </span><span class="kw">group_by</span>(gvkey) %&gt;%
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">num_permnos =</span> <span class="kw">n</span>()) %&gt;%
-<span class="st">    </span><span class="kw">ungroup</span>() %&gt;%
-<span class="st">    </span><span class="kw">count</span>(num_permnos) %&gt;%
-<span class="st">    </span><span class="kw">arrange</span>(num_permnos)</code></pre></div>
-<pre><code>## Source:   query [?? x 2]
-## Database: postgres 9.6.2 [igow@iangow.me:5432/crsp]
-## 
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">gvkey_permno <span class="op">%&gt;%</span><span class="st">    </span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">    </span><span class="kw">select</span>(gvkey, lpermno) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">    </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="st">    </span><span class="kw">group_by</span>(gvkey) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">num_permnos =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="st">    </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="st">    </span><span class="kw">count</span>(num_permnos) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="st">    </span><span class="kw">arrange</span>(num_permnos)</a></code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 2]
+## # Database:   postgres 11.3.0 [igow@iangow.me:5432/crsp]
+## # Ordered by: num_permnos
 ##   num_permnos     n
 ##         &lt;dbl&gt; &lt;dbl&gt;
-## 1           1 26616
-## 2           2  1504
-## 3           3   129
+## 1           1 27795
+## 2           2  1698
+## 3           3   201
 ## 4           4     8
 ## 5           5     5</code></pre>
 <p>I think I’ve looked into the case with 5 PERMNOs before. If I recall correctly, it’s a total mess with tracking stock, spin-offs, etc. But one observation doesn’t matter much.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stocknames &lt;-<span class="st"> </span><span class="kw">tbl</span>(pg, <span class="kw">sql</span>(<span class="st">&quot;SELECT * FROM crsp.stocknames&quot;</span>))
-gvkey_permno %&gt;%
-<span class="st">    </span><span class="kw">select</span>(gvkey, lpermno) %&gt;%
-<span class="st">    </span><span class="kw">distinct</span>() %&gt;%
-<span class="st">    </span><span class="kw">group_by</span>(gvkey) %&gt;%
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">num_permnos =</span> <span class="kw">n</span>()) %&gt;%
-<span class="st">    </span><span class="kw">filter</span>(num_permnos==5L) %&gt;%
-<span class="st">    </span><span class="kw">inner_join</span>(ccmxpf_lnkhist) %&gt;%
-<span class="st">    </span><span class="kw">rename</span>(<span class="dt">permno=</span>lpermno) %&gt;%
-<span class="st">    </span><span class="kw">inner_join</span>(stocknames) %&gt;%
-<span class="st">    </span><span class="kw">arrange</span>(linkdt) %&gt;%
-<span class="st">    </span><span class="kw">select</span>(gvkey, permno, linkdt, linkenddt, ncusip, comnam)</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">stocknames &lt;-<span class="st"> </span><span class="kw">tbl</span>(pg, <span class="kw">sql</span>(<span class="st">&quot;SELECT * FROM crsp.stocknames&quot;</span>))</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">gvkey_permno <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">    </span><span class="kw">select</span>(gvkey, lpermno) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">    </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="st">    </span><span class="kw">group_by</span>(gvkey) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">num_permnos =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="st">    </span><span class="kw">filter</span>(num_permnos<span class="op">==</span>5L) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="st">    </span><span class="kw">inner_join</span>(ccmxpf_lnkhist) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="st">    </span><span class="kw">rename</span>(<span class="dt">permno=</span>lpermno) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="st">    </span><span class="kw">inner_join</span>(stocknames) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="st">    </span><span class="kw">arrange</span>(linkdt) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="st">    </span><span class="kw">select</span>(gvkey, permno, linkdt, linkenddt, ncusip, comnam)</a></code></pre></div>
 
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="18">
-<li id="fn18"><p>Of course, PERMNOs, CUSIPs, and tickers (at best) identify <em>securities</em>, not firms. More on this below.<a href="identifiers.html#fnref18">↩</a></p></li>
-<li id="fn19"><p>In the United States, a Social Security Number (SSN) is a pretty robust identifier of people, though as researchers, we generally don’t have access to SSNs.<a href="identifiers.html#fnref19">↩</a></p></li>
-<li id="fn20"><p>Obviously, I am assuming that you recognize the various identifiers. If not, read on.<a href="identifiers.html#fnref20">↩</a></p></li>
+<li id="fn18"><p>Of course, PERMNOs, CUSIPs, and tickers (at best) identify <em>securities</em>, not firms. More on this below.<a href="identifiers.html#fnref18" class="footnote-back">↩</a></p></li>
+<li id="fn19"><p>In the United States, a Social Security Number (SSN) is a pretty robust identifier of people, though as researchers, we generally don’t have access to SSNs.<a href="identifiers.html#fnref19" class="footnote-back">↩</a></p></li>
+<li id="fn20"><p>Obviously, I am assuming that you recognize the various identifiers. If not, read on.<a href="identifiers.html#fnref20" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -255,8 +281,9 @@ gvkey_permno %&gt;%
         </div>
       </div>
 <a href="getting-data-into-postgresql.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="application-firm-performance-over-time.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="application-firm-performance-over-time.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -265,17 +292,18 @@ gvkey_permno %&gt;%
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -286,7 +314,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"history": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-start.pdf"],
 "toc": {
 "collapse": "subsection"
 }
@@ -299,9 +331,12 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
